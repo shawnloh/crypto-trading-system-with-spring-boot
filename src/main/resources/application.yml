@@ -1,1 +1,19 @@
-spring.application.name=trading-system
+spring:
+  application:
+    name: Crypto Trading System
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:crypto-trading-system
+
+app:
+  crypto:
+    price:
+      sources:
+        binance: https://api.binance.com/api/v3/ticker/bookTicker
+        huobi: https://api.huobi.pro/market/tickers
+    pairs: ETHUSDT, BTCUSDT
+      
+  aggregator:
+    fixedRateInMs: 10000
