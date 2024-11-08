@@ -1,6 +1,6 @@
 package tech.betterwith.tradingsystem.services;
 
-import tech.betterwith.tradingsystem.dto.CryptoPriceDTO;
+import tech.betterwith.tradingsystem.dtos.CryptoPriceDTO;
 
 import java.util.List;
 
