@@ -17,3 +17,8 @@ app:
       
   aggregator:
     fixedRateInMs: 10000
+    
+  security:
+    jwt:
+      secret: Qr8/PwBNaT1D4WQpsxSaBeOlK347WQV4lrjquKrfMl0=
+      expirationInMs: 86400000

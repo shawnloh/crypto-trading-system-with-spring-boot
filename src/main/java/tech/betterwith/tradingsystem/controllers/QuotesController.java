@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.betterwith.tradingsystem.dtos.CryptoPriceDTO;
+import tech.betterwith.tradingsystem.dtos.CryptoPriceResponseDto;
 import tech.betterwith.tradingsystem.services.CryptoPriceService;
 
 import java.util.List;
@@ -19,10 +19,10 @@ public class QuotesController {
     public QuotesController(CryptoPriceService cryptoPriceService) {
         this.cryptoPriceService = cryptoPriceService;
     }
-    
+
     @GetMapping()
-    public ResponseEntity<List<CryptoPriceDTO>> getQuotes() {
+    public ResponseEntity<List<CryptoPriceResponseDto>> getQuotes() {
         return ResponseEntity.ok(cryptoPriceService.getLatestPrices());
     }
-    
+
 }

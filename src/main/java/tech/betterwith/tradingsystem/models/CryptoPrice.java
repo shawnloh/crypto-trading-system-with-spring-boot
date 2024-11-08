@@ -26,7 +26,6 @@ public class CryptoPrice {
     private String bidSource;
     
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime retrievedAt;
 
     public CryptoPrice(String symbol, BigDecimal askPrice, String askSource, BigDecimal bidPrice, String bidSource) {

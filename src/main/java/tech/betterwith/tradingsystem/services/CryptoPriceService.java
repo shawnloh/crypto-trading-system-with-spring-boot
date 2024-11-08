@@ -1,9 +1,9 @@
 package tech.betterwith.tradingsystem.services;
 
-import tech.betterwith.tradingsystem.dtos.CryptoPriceDTO;
+import tech.betterwith.tradingsystem.dtos.CryptoPriceResponseDto;
 
 import java.util.List;
 
 public interface CryptoPriceService {
-     List<CryptoPriceDTO> getLatestPrices();
+    List<CryptoPriceResponseDto> getLatestPrices();
 }
