@@ -12,11 +12,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 import tech.betterwith.tradingsystem.repository.UserRepository;
 
 @Configuration
 @EnableScheduling
+@EnableTransactionManagement
 public class AppConfig {
     private final UserRepository userRepository;
 

@@ -41,10 +41,19 @@ public class AppUser implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<CryptoWallet> wallets;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<CryptoWallet> wallets = new HashSet<>();
+    private Set<Order> orders;
+
+    public AppUser() {
+        roles = new HashSet<>();
+        wallets = new HashSet<>();
+        orders = new HashSet<>();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -92,5 +101,11 @@ public class AppUser implements UserDetails {
 
     public void addRole(Role role) {
         roles.add(role);
+        role.getUsers().add(this);
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+        order.setUser(this);
     }
 }

@@ -23,10 +23,14 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
+    @Getter
     private Set<AppUser> users = new HashSet<>();
 
     public Role(AppRole name) {
         this.name = name;
+    }
+
+    public Role() {
     }
 
 }

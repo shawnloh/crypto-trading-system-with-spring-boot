@@ -31,7 +31,7 @@ public class TradingSystemApplication {
             appUser.setPassword(passwordEncoder.encode("password"));
             appUser.setFullName("User");
             appUser.addRole(role);
-            CryptoWallet usdtCryptoWallet = new CryptoWallet(new BigDecimal("50000.0"), CryptoCurrency.USDT, appUser);
+            CryptoWallet usdtCryptoWallet = new CryptoWallet(new BigDecimal("50000.0"), CryptoCurrency.USDT);
             appUser.addWallet(usdtCryptoWallet);
             userRepository.save(appUser);
         };

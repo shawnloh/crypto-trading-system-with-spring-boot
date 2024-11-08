@@ -6,6 +6,11 @@ spring:
       enabled: true
   datasource:
     url: jdbc:h2:mem:crypto-trading-system
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
 app:
   crypto:
@@ -14,10 +19,10 @@ app:
         binance: https://api.binance.com/api/v3/ticker/bookTicker
         huobi: https://api.huobi.pro/market/tickers
     pairs: ETHUSDT, BTCUSDT
-      
+  
   aggregator:
     fixedRateInMs: 10000
-    
+  
   security:
     jwt:
       secret: Qr8/PwBNaT1D4WQpsxSaBeOlK347WQV4lrjquKrfMl0=
