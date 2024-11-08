@@ -7,8 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -24,7 +24,10 @@ public class CryptoPrice {
     private String askSource;
     private BigDecimal bidPrice;
     private String bidSource;
-    
+
+    @OneToMany(mappedBy = "cryptoPrice")
+    private Set<Order> orders;
+
     @CreationTimestamp
     private LocalDateTime retrievedAt;
 
@@ -37,7 +40,7 @@ public class CryptoPrice {
     }
 
     public CryptoPrice() {
-        
+
     }
-    
+
 }

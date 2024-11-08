@@ -67,8 +67,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         // deduct USDT from user
-        Order order = new Order(cryptoPrice.getSymbol(), orderDto.getOrderType(), orderDto.getQuantity(), cryptoPrice.getAskPrice());
-        order.setUser(user);
+        Order order = new Order(cryptoPrice.getSymbol(), orderDto.getOrderType(), orderDto.getQuantity(), cryptoPrice.getAskPrice().multiply(orderDto.getQuantity()), cryptoPrice, user);
         orderRepository.save(order);
         CryptoWallet usdtWallet = user.getWallets().stream().filter(wallet -> wallet.getCurrency() == CryptoCurrency.USDT).findFirst().orElseThrow(() -> new ResourceNotFoundException("Wallet", "USDT", "currency"));
         usdtWallet.setBalance(balance.subtract(orderDto.getQuantity().multiply(cryptoPrice.getAskPrice())));
@@ -77,13 +76,10 @@ public class OrderServiceImpl implements OrderService {
         if (existingWallet.isPresent()) {
             existingWallet.get().setBalance(existingWallet.get().getBalance().add(orderDto.getQuantity()));
         } else {
-            CryptoWallet wallet = new CryptoWallet(orderDto.getQuantity(), buyOrSellCurrency);
-            wallet.setUser(user);
+            CryptoWallet wallet = new CryptoWallet(orderDto.getQuantity(), buyOrSellCurrency, user);
             cryptoWalletRepository.save(wallet);
         }
-
         userRepository.save(user);
-
         return new OrderTransactionDto("Order placed successfully", true, orderDto);
     }
 
@@ -95,16 +91,20 @@ public class OrderServiceImpl implements OrderService {
         }
 
         // deduct BTC/ETH from user
-        Order order = new Order(cryptoPrice.getSymbol(), orderDto.getOrderType(), orderDto.getQuantity(), cryptoPrice.getAskPrice());
-        order.setUser(user);
+        Order order = new Order(cryptoPrice.getSymbol(), orderDto.getOrderType(), orderDto.getQuantity(), cryptoPrice.getAskPrice().multiply(orderDto.getQuantity()), cryptoPrice, user);
         orderRepository.save(order);
         existingWallet.get().setBalance(existingWallet.get().getBalance().subtract(orderDto.getQuantity()));
         cryptoWalletRepository.save(existingWallet.get());
-        // add USDT to user
 
-        CryptoWallet usdtWallet = user.getWallets().stream().filter(wallet -> wallet.getCurrency() == CryptoCurrency.USDT).findFirst().orElseThrow(() -> new ResourceNotFoundException("Wallet", "USDT", "currency"));
-        usdtWallet.setBalance(usdtWallet.getBalance().add(orderDto.getQuantity().multiply(cryptoPrice.getBidPrice())));
-        cryptoWalletRepository.save(usdtWallet);
+        // add USDT to user
+        Optional<CryptoWallet> usdtWallet = user.getWallets().stream().filter(wallet -> wallet.getCurrency() == CryptoCurrency.USDT).findFirst();
+        if (usdtWallet.isEmpty()) {
+            CryptoWallet wallet = new CryptoWallet(orderDto.getQuantity().multiply(cryptoPrice.getBidPrice()), CryptoCurrency.USDT, user);
+            cryptoWalletRepository.save(wallet);
+        } else {
+            usdtWallet.get().setBalance(usdtWallet.get().getBalance().add(orderDto.getQuantity().multiply(cryptoPrice.getBidPrice())));
+            cryptoWalletRepository.save(usdtWallet.get());
+        }
         userRepository.save(user);
 
         return new OrderTransactionDto("Order placed successfully", true, orderDto);

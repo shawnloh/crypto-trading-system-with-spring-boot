@@ -23,7 +23,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Setter
     private OrderType orderType;
-    
+
     @Setter
     private BigDecimal quantity;
 
@@ -34,15 +34,21 @@ public class Order {
     private LocalDateTime createdAt;
 
     @ManyToOne
+    @JoinColumn(name = "crypto_price_id")
+    private CryptoPrice cryptoPrice;
+
+    @ManyToOne
     @Setter
     @JoinColumn(name = "user_id")
     private AppUser user;
 
-    public Order(String symbol, OrderType orderType, BigDecimal quantity, BigDecimal price) {
+    public Order(String symbol, OrderType orderType, BigDecimal quantity, BigDecimal price, CryptoPrice cryptoPrice, AppUser user) {
         this.symbol = symbol;
         this.orderType = orderType;
         this.quantity = quantity;
         this.price = price;
+        this.cryptoPrice = cryptoPrice;
+        this.user = user;
     }
 
     public Order() {

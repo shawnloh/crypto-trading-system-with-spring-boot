@@ -27,9 +27,10 @@ public class CryptoWallet {
     @JoinColumn(name = "user_id")
     private AppUser user;
 
-    public CryptoWallet(BigDecimal balance, CryptoCurrency currency) {
+    public CryptoWallet(BigDecimal balance, CryptoCurrency currency, AppUser user) {
         this.balance = balance;
         this.currency = currency;
+        this.user = user;
     }
 
     public CryptoWallet() {
