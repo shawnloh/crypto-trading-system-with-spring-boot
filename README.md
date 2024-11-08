@@ -63,8 +63,8 @@ Get the latest aggregated quotes for all the support crypto pairs.
 ```json
 {
   "symbol": "ETHUSDT",
-  "side": "BUY",
-  "orderType": 1
+  "orderType": "BUY",
+  "quantity": 1
 }
 ```
 
