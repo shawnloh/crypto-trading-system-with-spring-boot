@@ -1,4 +1,4 @@
-package tech.betterwith.tradingsystem.dto;
+package tech.betterwith.tradingsystem.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

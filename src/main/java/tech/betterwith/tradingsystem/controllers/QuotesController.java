@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.betterwith.tradingsystem.dto.CryptoPriceDTO;
+import tech.betterwith.tradingsystem.dtos.CryptoPriceDTO;
 import tech.betterwith.tradingsystem.services.CryptoPriceService;
 
 import java.util.List;
